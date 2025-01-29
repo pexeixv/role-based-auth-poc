@@ -3,9 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
 const ProtectedRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
-  const { token, role, loading } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { token, role } = useSelector((state: RootState) => state.auth);
 
   if (token && !role) {
     return <div className="text-center mt-10 text-xl">Fetching role...</div>;

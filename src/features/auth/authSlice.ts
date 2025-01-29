@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
+export type IRole = "creator" | "reviewer" | "publisher" | null;
+
 interface AuthState {
   token: string | null;
-  role: "creator" | "reviewer" | "publisher" | null;
+  role: IRole;
   loading: boolean;
   error: string | null;
 }
@@ -101,7 +103,7 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.token = action.payload.token;
-        state.role = action.payload.role;
+        state.role = action.payload.role as IRole;
         state.loading = false;
       })
       .addCase(login.rejected, (state, action) => {
@@ -113,7 +115,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(getRole.fulfilled, (state, action) => {
-        state.role = action.payload;
+        state.role = action.payload as IRole;
         state.loading = false;
       })
       .addCase(getRole.rejected, (state, action) => {
