@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       const response = await dispatch(login({ username, password })).unwrap();
-      await dispatch(getRole(response.token));
+      await dispatch(getRole(response.data.tokens.AccessToken));
       navigate("/dashboard");
     } catch (err) {
       dispatch(setError(err as string));
@@ -47,6 +47,7 @@ const Login = () => {
             <option value="creator">CREATOR</option>
             <option value="reviewer">REVIEWER</option>
             <option value="publisher">PUBLISHER</option>
+            <option value="admin">ADMIN</option>
           </select>
         </div>
 

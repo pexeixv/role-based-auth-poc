@@ -1,3 +1,4 @@
+import { HouseIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Unauthorized = () => (
@@ -6,10 +7,10 @@ const Unauthorized = () => (
       Unauthorized Access
     </h1>
     <Link
-      className="bg-blue-500 text-white p-2 rounded text-center mt-8 px-6"
+      className="bg-slate-700 text-white p-2 rounded text-center mt-8 px-6"
       to="/dashboard"
     >
-      Dashboard
+      <HouseIcon />
     </Link>
   </section>
 );

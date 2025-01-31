@@ -16,16 +16,17 @@ import PublisherPage from "./pages/PublisherPage";
 import Unauthorized from "./pages/Unauthorized";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
+import AdminPage from "./pages/AdminPage";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { token, role } = useSelector((state: RootState) => state.auth);
+  const { token, roles } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    if (token && !role) {
+    if (token && !roles) {
       dispatch(getRole(token));
     }
-  }, [token, role, dispatch]);
+  }, [token, roles, dispatch]);
 
   return (
     <Router>
@@ -50,23 +51,26 @@ const App = () => {
         <Route
           element={
             <ProtectedRoute
-              allowedRoles={["creator", "reviewer", "publisher"]}
+              allowedRoles={["CREATOR", "REVIEWER", "PUBLISHER"]}
             />
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={["creator"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["CREATOR"]} />}>
           <Route path="/creator" element={<CreatorPage />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={["reviewer"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["REVIEWER"]} />}>
           <Route path="/reviewer" element={<ReviewerPage />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={["publisher"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["PUBLISHER"]} />}>
           <Route path="/publisher" element={<PublisherPage />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+          <Route path="/admin" element={<AdminPage />} />
         </Route>
       </Routes>
     </Router>

@@ -3,16 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../store/store";
 
-// const allPermissions = [
-//   "CREATE",
-//   "VIEW",
-//   "EDIT",
-//   "DELETE",
-//   "APPROVE",
-//   "REJECT",
-// ];
-
-const CreatorPage = () => {
+const AdminPage = () => {
   const { roles } = useSelector((state: RootState) => state.auth);
   const thisRole = roles?.filter((r) => r.role_name === "CREATOR")[0];
 
@@ -43,4 +34,5 @@ const CreatorPage = () => {
     </section>
   );
 };
-export default CreatorPage;
+
+export default AdminPage;

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, role } = useSelector((state: RootState) => state.auth);
+  const { token, roles } = useSelector((state: RootState) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -21,8 +21,10 @@ const Header = () => {
 
       {!!token && (
         <div className="flex items-center gap-4">
-          <span className="bg-slate-800 px-3 py-1 rounded text-sm">
-            {role?.toUpperCase() ?? "Fetching role..."}
+          <span className="bg-slate-800 px-3 py-1 rounded text-sm gap-2 flex">
+            {roles
+              ? roles.map((r) => <span key={r.role_id}>{r.role_name}</span>)
+              : "Fetching role..."}
           </span>
 
           <button
